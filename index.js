@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
+import videoRoutes from './routes/video.js'
 
 const app = express();
 dotenv.config();
@@ -34,6 +35,8 @@ app.get("/",(req,res)=>{
 app.use("/api/auth",authRoutes);
 //user route
 app.use("/api/users",userRoutes);
+//vide route
+app.use("/api/video",videoRoutes);
 
 // error handler 
 app.use((err,req,res,next)=>{
