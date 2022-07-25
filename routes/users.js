@@ -9,14 +9,14 @@ router.put("/:id",verifyToken,update);
 //update user
 router.delete("/:id",verifyToken,deleteUser);
 //update user
-router.get("/:id",getUser);
+router.get("/find/:id",getUser);
 //update user
-router.put("/:id",verifyToken,subscribe);
+router.put("/sub/:id",verifyToken,subscribe);
 //update user
-router.put("/:id",verifyToken,unsubscribe);
+router.put("/unsub/:id",verifyToken,unsubscribe);
 //update user
-router.put("/:id",verifyToken,like);
+router.put("/like/:videoId",verifyToken,like);
 //update user
-router.put("/:id",verifyToken,dislike);
+router.put("/dislike/:videoId",verifyToken,dislike);
 
 export default router;
