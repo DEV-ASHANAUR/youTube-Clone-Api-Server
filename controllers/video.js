@@ -5,7 +5,7 @@ import {createError} from '../error.js';
 export const addVideo = async(req,res,next)=>{
     const newVideo = new Video({userId:req.user.id,...req.body});
     try {
-        const savedVideo = await newVideo();
+        const savedVideo = await newVideo.save();
         res.status(200).json(savedVideo);
     } catch (error) {
         next(error);
@@ -86,19 +86,23 @@ export const sub = async(req,res,next)=>{
         const user = await User.findById(req.user.id);
         const subscriberChannels = user.subscribedUsers;
 
-        const list = await Promise.all(
-            subscriberChannels.map(async(channelId)=>{
-                return await Video.find({userId:channelId});
-            })
-        );
-        res.status(200).json(list.flat().sort((a,b)=>b.createdAt - a.createdAt));
+        if(subscriberChannels.length){
+            const list = await Promise.all(
+                subscriberChannels.map(async(channelId)=>{
+                    return await Video.find({userId:channelId});
+                })
+            );
+            res.status(200).json(list.flat().sort((a,b)=>b.createdAt - a.createdAt));
+        }else{
+            res.status(200).json([]);
+        }
     } catch (error) {
         next(error)
     }
 }
 
 export const getByTag = async(req,res,next)=>{
-    const tags = req.query.tags.spit(",");
+    const tags = req.query.tags.split(",");
     try {
         const videos = await Video.find({tags:{$in:tags}}).limit(20);
         res.status(200).json(videos);
@@ -113,6 +117,7 @@ export const search = async(req,res,next)=>{
         const videos = await Video.find({
             title: { $regex: query, $options: "i" },
         })
+        res.status(200).json(videos);
     } catch (error) {
         next(error)
     }
