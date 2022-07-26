@@ -6,6 +6,6 @@ const router = express.Router();
 //comment
 router.post("/",verifyToken,addComment);
 router.delete("/:id",verifyToken,deleteComment);
-router.get("/:videoId",verifyToken,getComment);
+router.get("/:videoId",getComment);
 
 export default router;
