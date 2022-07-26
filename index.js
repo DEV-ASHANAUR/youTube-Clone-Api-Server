@@ -4,7 +4,8 @@ import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
-import videoRoutes from './routes/video.js'
+import videoRoutes from './routes/video.js';
+import commentRoutes from './routes/comment.js';
 
 const app = express();
 dotenv.config();
@@ -37,6 +38,8 @@ app.use("/api/auth",authRoutes);
 app.use("/api/users",userRoutes);
 //vide route
 app.use("/api/video",videoRoutes);
+//comment route
+app.use("/api/comment",commentRoutes);
 
 // error handler 
 app.use((err,req,res,next)=>{
