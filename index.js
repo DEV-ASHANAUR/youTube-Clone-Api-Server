@@ -6,10 +6,11 @@ import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import videoRoutes from './routes/video.js';
 import commentRoutes from './routes/comment.js';
+import cors from 'cors';
 
 const app = express();
 dotenv.config();
-
+app.use(cors());
 const PORT = process.env.PORT || 8000;
 
 const connect = () =>{
