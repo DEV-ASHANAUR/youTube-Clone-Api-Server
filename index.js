@@ -27,6 +27,7 @@ mongoose.connection.on("disconnected",()=>{
 //middleware
 const corsOptions = {
     origin: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }
 app.use(cors(corsOptions));
