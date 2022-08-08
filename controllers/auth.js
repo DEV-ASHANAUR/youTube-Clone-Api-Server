@@ -63,18 +63,18 @@ export const googleAuth = async (req, res, next) => {
             res.cookie("access_token", token, {
                 httpOnly: true,
             }).status(200).json(others);
-        }else{
+        } else {
             const newUser = new User({
                 ...req.body,
-                fromGoogle : true
+                fromGoogle: true
             });
             const savedUser = await newUser.save();
             const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
-    
+
             res.cookie("access_token", token, {
                 httpOnly: true,
             }).status(200).json(savedUser);
-            
+
         }
     } catch (error) {
         next(error);

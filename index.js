@@ -10,7 +10,6 @@ import cors from 'cors';
 
 const app = express();
 dotenv.config();
-app.use(cors());
 const PORT = process.env.PORT || 8000;
 
 const connect = () =>{
@@ -26,6 +25,11 @@ mongoose.connection.on("disconnected",()=>{
 });
 
 //middleware
+const corsOptions = {
+    origin: true,
+    credentials: true,
+}
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 
