@@ -23,7 +23,9 @@ export const signup = async (req, res, next) => {
         const { password, ...others } = savedUser._doc;
 
         res.cookie("access_token", token, {
+            secure: true,
             httpOnly: true,
+            sameSite: 'none'
         }).status(200).json(others);
 
     } catch (error) {
@@ -45,7 +47,9 @@ export const signin = async (req, res, next) => {
         const { password, ...others } = user._doc;
 
         res.cookie("access_token", token, {
+            secure: true,
             httpOnly: true,
+            sameSite: 'none'
         }).status(200).json(others);
 
     } catch (error) {
@@ -72,8 +76,9 @@ export const googleAuth = async (req, res, next) => {
             const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
 
             res.cookie("access_token", token, {
+                secure: true,
                 httpOnly: true,
-                secure: true, sameSite: 'none'
+                sameSite: 'none'
             }).status(200).json(savedUser);
 
         }
